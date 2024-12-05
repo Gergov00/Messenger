@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="Messenger.MainWindow"
+        Width="800" Height="600" Title="Messenger"
+		xmlns:data="clr-namespace:Messenger.Data"
+		xmlns:messenger="clr-namespace:Messenger">
+	<Grid ColumnDefinitions="200,*,Auto" RowDefinitions="*">
+		<!-- Привязка ItemsSource через привязку к Users -->
+		<ListBox x:Name="UserList" Grid.Column="0" SelectionChanged="UserSelected" x:DataType="messenger:MainWindow" ItemsSource="{Binding Users}">
+			<ListBox.ItemTemplate>
+				<DataTemplate x:DataType="data:User">
+					<!-- Привязка конкретного свойства username -->
+					<TextBlock Text="{Binding username}" />
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+
+		<!-- Сообщения -->
+		<ScrollViewer Grid.Column="1">
+			<StackPanel x:Name="MessagesPanel" />
+		</ScrollViewer>
+
+		<!-- Ввод сообщения -->
+		<Grid Grid.Column="1" VerticalAlignment="Bottom">
+			<TextBox x:Name="MessageInput" Width="600" Height="30" />
+			<Button x:Name="SendButton" Content="Send" Click="SendMessage" HorizontalAlignment="Right"/>
+		</Grid>
+	</Grid>
+</Window>

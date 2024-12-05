@@ -1,0 +1,132 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Messenger.SignUp"
+        Title="SignUp"
+		Background="White">
+	<Window.Styles>
+		<Style Selector="TextBox">
+			<Style Selector="^:pointerover">
+				<Setter Property="Foreground" Value="{DynamicResource TextControlForegroundPointerOver}" />
+				<Style Selector="^ /template/ Border#PART_BorderElement">
+					<Setter Property="BorderBrush" Value="Gray"/>
+					<Setter Property="Background" Value="#e6e3e8" />
+				</Style>
+				<Style Selector="^ /template/ TextBlock#PART_Watermark">
+					<Setter Property="Foreground" Value="Gray" />
+				</Style>
+			</Style>
+			<Style Selector="^:focus">
+				<Setter Property="Foreground" Value="{DynamicResource TextControlForegroundFocused}" />
+				<Style Selector="^ /template/ TextBlock#PART_Watermark">
+					<Setter Property="Foreground" Value="Gray" />
+				</Style>
+				<Style Selector="^ /template/ Border#PART_BorderElement">
+					<Setter Property="BorderBrush" Value="Gray"/>
+					<Setter Property="BorderThickness" Value="1" />
+					<Setter Property="Background" Value="#dbd3e0"/>
+				</Style>
+			</Style>
+		</Style>
+		<Style Selector="Button.SignUp">
+			<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Background" Value="#9b27e3" />
+			</Style>
+		</Style>
+		<Style Selector="Button.LogIn">
+			<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Background" Value="#2cf27b" />
+			</Style>
+		</Style>
+	</Window.Styles>
+
+
+	<StackPanel Margin="10"
+				  HorizontalAlignment="Center"
+				  VerticalAlignment="Center">
+		<TextBlock Text="Регистрация"
+				   FontSize="20"
+				   FontWeight="Bold"
+				   HorizontalAlignment="Center"
+				   Margin="0,0,0,20"
+				   VerticalAlignment="Top"
+				   Foreground="Black"/>
+
+		<StackPanel Margin="0,0,0,10">
+			<TextBlock
+				Text="Имя пользователя:"
+				FontWeight="Bold"
+				Margin="0,0,0,5"
+				Foreground="Black"/>
+			<TextBox
+				BorderBrush="Gray"
+				BorderThickness="1"
+				Background="White"
+				x:Name="UsernameTextBox"
+				Watermark="Введите имя"
+				Foreground="Gray"/>
+		</StackPanel>
+
+		<StackPanel Margin="0,0,0,10">
+			<TextBlock
+				Text="Электронная почта:"
+				FontWeight="Bold"
+				Margin="0,0,0,5"
+				Foreground="Black"/>
+			<TextBox
+				BorderBrush="Gray"
+				BorderThickness="1"
+				Background="White"
+				x:Name="EmailTextBox"
+				Watermark="Введите email"
+				Foreground="Gray">
+
+			</TextBox>
+		</StackPanel>
+
+		<StackPanel Margin="0,0,0,10">
+			<TextBlock
+				Text="Пароль:"
+				FontWeight="Bold"
+				Margin="0,0,0,5"
+				Foreground="Black"/>
+			<TextBox
+				x:Name="PasswordTextBox"
+				BorderBrush="Gray"
+				BorderThickness="1"
+				Background="White"
+				Watermark="Введите пароль"
+				PasswordChar="*"
+				Foreground="Gray"
+				Classes="SignUp"/>
+				
+			
+		</StackPanel>
+
+		<Button
+			Classes="SignUp"
+			Content="Зарегистрироваться"
+			Height="40"
+			HorizontalAlignment="Stretch"
+			Click="RegisterButton_Click"
+			Background="#9421db"
+			Foreground="White"/>
+		<TextBlock
+			Text="Если уже есть аккаунт"
+			Margin="0, 20, 0, 0"
+			Foreground="Black"/>
+		<Button
+			Classes="LogIn"
+			Content="Войти"
+			Click="GoLogInPage_Click"
+			Height="30"
+			Width="90"
+			HorizontalAlignment="Center"
+			HorizontalContentAlignment="Center"
+			Margin="5"
+			Foreground="White"
+			Background="#1ac960"/>
+	</StackPanel>
+</Window>
