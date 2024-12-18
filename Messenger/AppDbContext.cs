@@ -6,6 +6,7 @@ namespace Messenger.Data
     {
         public DbSet<User> users { get; set; }
         public DbSet<Message> messages { get; set; }
+        public DbSet<Friendship> friendships { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Строка подключения к PostgreSQL

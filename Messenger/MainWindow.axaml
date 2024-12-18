@@ -1,29 +1,58 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="Messenger.MainWindow"
-        Width="800" Height="600" Title="Messenger"
+        Width="1200" Height="900" Title="Messenger"
 		xmlns:data="clr-namespace:Messenger.Data"
 		xmlns:messenger="clr-namespace:Messenger">
-	<Grid ColumnDefinitions="200,*,Auto" RowDefinitions="*">
-		<!-- Привязка ItemsSource через привязку к Users -->
-		<ListBox x:Name="UserList" Grid.Column="0" SelectionChanged="UserSelected" x:DataType="messenger:MainWindow" ItemsSource="{Binding Users}">
+	<Grid ColumnDefinitions="200,*,Auto" RowDefinitions="Auto,*,Auto, Auto">
+		<TextBox x:Name="SearchBox" Grid.Row="0" Margin="5" Watermark="Найти пользователя" />
+		<Button Content="Найти" Grid.Row="0" Grid.Column="1" Click="SearchUsers" Margin="5"/>
+
+		<!-- Список друзей -->
+		<ListBox x:DataType="messenger:MainWindow"  SelectionChanged="UserSelected" x:Name="FriendsList" ItemsSource="{Binding Friends}" Grid.Row="1" Grid.ColumnSpan="2" Margin="5">
 			<ListBox.ItemTemplate>
-				<DataTemplate x:DataType="data:User">
-					<!-- Привязка конкретного свойства username -->
-					<TextBlock Text="{Binding username}" />
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock x:DataType="data:User" Text="{Binding username}" Margin="0,0,10,0" />
+						<Button Content="Удалить" Click="OnRemoveFriendClick" />
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+
+		<!-- Список найденных пользователей -->
+		<ListBox x:DataType="messenger:MainWindow" ItemsSource="{Binding SearchResults}" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" Background="Yellow">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock  Text="{Binding username}" Margin="0,0,10,0" />
+						<Button Content="Добавить"  Click="OnAddFriendClick" />
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+
+		<ListBox x:DataType="messenger:MainWindow" x:Name="FriendRequestsList" ItemsSource="{Binding FriendRequests}" Grid.Row="3" Grid.ColumnSpan="2" Margin="5" Background="Green">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="{Binding username}" Margin="0,0,10,0" />
+						<Button Content="Принять" Click="OnAcceptRequestClick" CommandParameter="{Binding}" />
+						<Button Content="Отклонить" Click="OnRejectRequestClick" CommandParameter="{Binding}" />
+					</StackPanel>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
 
 		<!-- Сообщения -->
-		<ScrollViewer Grid.Column="1">
-			<StackPanel x:Name="MessagesPanel" />
+		<ScrollViewer Grid.Column="3" Grid.RowSpan="2">
+			<StackPanel x:Name="MessagesPanel" Background="Green"/>
 		</ScrollViewer>
 
 		<!-- Ввод сообщения -->
-		<Grid Grid.Column="1" VerticalAlignment="Bottom">
-			<TextBox x:Name="MessageInput" Width="600" Height="30" />
-			<Button x:Name="SendButton" Content="Send" Click="SendMessage" HorizontalAlignment="Right"/>
+		<Grid Grid.Column="3" Grid.Row="3" VerticalAlignment="Bottom">
+			<TextBox x:Name="MessageInput" Width="600" Height="30" VerticalAlignment="Bottom"/>
+			<Button x:Name="SendButton" Content="Send" Click="SendMessage" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
 		</Grid>
 	</Grid>
 </Window>
